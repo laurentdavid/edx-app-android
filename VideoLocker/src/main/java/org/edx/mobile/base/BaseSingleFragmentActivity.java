@@ -5,12 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.edx.mobile.R;
+import org.edx.mobile.view.AuthPanelUtils;
 import org.edx.mobile.view.common.MessageType;
 import org.edx.mobile.view.common.TaskProcessCallback;
 
@@ -32,14 +32,16 @@ public abstract class BaseSingleFragmentActivity extends BaseFragmentActivity im
     @Nullable
     TextView centerMessageBox;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_fragment_base);
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AuthPanelUtils.configureAuthPanel(findViewById(R.id.auth_panel), environment);
     }
 
     @Override
