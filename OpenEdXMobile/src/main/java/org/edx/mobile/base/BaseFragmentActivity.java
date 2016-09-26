@@ -416,8 +416,6 @@ public abstract class BaseFragmentActivity extends BaseAppActivity
 
     /**
      * callback from EventBus
-     *
-     * @param event
      */
     @SuppressWarnings("unused")
     public void onEvent(LogoutEvent event) {
@@ -426,8 +424,6 @@ public abstract class BaseFragmentActivity extends BaseAppActivity
 
     /**
      * callback from EventBus
-     *
-     * @param event
      */
     @SuppressWarnings("unused")
     public void onEvent(NetworkConnectivityChangeEvent event) {
@@ -539,6 +535,7 @@ public abstract class BaseFragmentActivity extends BaseAppActivity
 
     public void showErrorDialog(@Nullable String title, @NonNull String message) {
         AlertDialogFragment.newInstance(title, message).show(getSupportFragmentManager(), null);
+
     }
 
     @Override

@@ -32,8 +32,10 @@ import org.edx.mobile.util.ResourceUtil;
 import org.edx.mobile.view.dialog.ResetPasswordAlertDialogFragment;
 import org.edx.mobile.view.login.LoginPresenter;
 
-public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresenter.LoginViewInterface> implements SocialLoginDelegate.MobileLoginCallback {
+public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresenter.LoginViewInterface>
+        implements SocialLoginDelegate.MobileLoginCallback, ResetPasswordAlertDialogFragment.Listener {
 
+    private ResetPasswordAlertDialogFragment resetPasswordAlert;
     private SocialLoginDelegate socialLoginDelegate;
     private ActivityLoginBinding activityLoginBinding;
 
@@ -234,7 +236,33 @@ public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresen
     }
 
     private void showResetPasswordDialog() {
-        ResetPasswordAlertDialogFragment.newInstance(this, getEmail()).show(getSupportFragmentManager(), null);
+        resetPasswordAlert = ResetPasswordAlertDialogFragment.newInstance(this, getEmail());
+        resetPasswordAlert.setListener(this);
+        resetPasswordAlert.show(getSupportFragmentManager(), null);
+    }
+
+    @Override
+    public void onResult(boolean success, @Nullable String errorMessage) {
+        if (success) {
+            if (resetPasswordAlert!=null) {
+                resetPasswordAlert.dismiss();
+            }
+            showErrorDialog(getString(R.string.success_dialog_title_help), getString(R.string.success_dialog_message_help));
+        }
+        else if (resetPasswordAlert!=null) {
+            if (errorMessage!=null) {
+                resetPasswordAlert.showError(errorMessage);
+            }
+            else {
+                // this shouldn't happen, but just in case we are here, dismiss the dialog
+                resetPasswordAlert.dismiss();
+            }
+        }
+    }
+
+    @Override
+    public void omDismissed() {
+        resetPasswordAlert=null;
     }
 
     public void showEulaDialog() {
@@ -249,9 +277,6 @@ public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresen
 
     /**
      * Starts fetching profile of the user after login by Facebook or Google.
-     *
-     * @param accessToken
-     * @param backend
      */
     public void onSocialLoginSuccess(String accessToken, String backend, Task task) {
         tryToSetUIInteraction(false);
@@ -265,7 +290,6 @@ public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresen
 
     public void onUserLoginFailure(Exception ex, String accessToken, String backend) {
         tryToSetUIInteraction(true);
-
 
         // handle if this is a LoginException
         if (ex != null && ex instanceof LoginException) {
