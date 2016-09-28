@@ -48,6 +48,8 @@ public class DiscoveryLaunchActivity extends BaseFragmentActivity {
         if (environment.getLoginPrefs().getUsername() != null) {
             finish();
             environment.getRouter().showMyCourses(this);
+        } else if (!environment.getConfig().isRegistrationEnabled()) {
+            this.startActivity(environment.getRouter().getLogInIntent());
         }
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -257,8 +258,15 @@ public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresen
 
     @Override
     public boolean createOptionsMenu(Menu menu) {
-        // Login screen doesn't have any menu
-        return true;
+        if (!environment.getConfig().isRegistrationEnabled()) {
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setHomeButtonEnabled(false);
+                actionBar.setDisplayHomeAsUpEnabled(false);
+                actionBar.setDisplayShowHomeEnabled(false);
+            }
+        }
+        return false;
     }
 
     /**
