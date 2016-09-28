@@ -68,7 +68,6 @@ public class AlertDialogFragment extends DialogFragment {
     @NonNull
     protected ButtonAttributes getPositiveButtonAttributes() {
         return new ButtonAttributes() {
-
             @NonNull
             @Override
             public String getMessage() {

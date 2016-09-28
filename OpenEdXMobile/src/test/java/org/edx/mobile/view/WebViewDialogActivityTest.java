@@ -1,6 +1,5 @@
 package org.edx.mobile.view;
 
-import android.app.ActionBar;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;

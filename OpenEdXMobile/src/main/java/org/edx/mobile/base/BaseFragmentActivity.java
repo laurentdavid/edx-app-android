@@ -151,7 +151,6 @@ public abstract class BaseFragmentActivity extends BaseAppActivity
         }
     }
 
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -535,12 +534,10 @@ public abstract class BaseFragmentActivity extends BaseAppActivity
 
     public void showErrorDialog(@Nullable String title, @NonNull String message) {
         AlertDialogFragment.newInstance(title, message).show(getSupportFragmentManager(), null);
-
     }
 
     @Override
     public boolean tryToSetUIInteraction(boolean enable) {
         return false;
     }
-
 }

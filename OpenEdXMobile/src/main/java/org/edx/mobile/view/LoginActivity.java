@@ -96,7 +96,7 @@ public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresen
         activityLoginBinding.endUserAgreementTv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                showEulaDialog();
+                environment.getRouter().showWebViewDialog(LoginActivity.this, getString(R.string.eula_file_link), getString(R.string.end_user_title));
             }
         });
 
@@ -244,16 +244,14 @@ public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresen
     @Override
     public void onResult(boolean success, @Nullable String errorMessage) {
         if (success) {
-            if (resetPasswordAlert!=null) {
+            if (resetPasswordAlert != null) {
                 resetPasswordAlert.dismiss();
             }
             showErrorDialog(getString(R.string.success_dialog_title_help), getString(R.string.success_dialog_message_help));
-        }
-        else if (resetPasswordAlert!=null) {
-            if (errorMessage!=null) {
+        } else if (resetPasswordAlert != null) {
+            if (errorMessage != null) {
                 resetPasswordAlert.showError(errorMessage);
-            }
-            else {
+            } else {
                 // this shouldn't happen, but just in case we are here, dismiss the dialog
                 resetPasswordAlert.dismiss();
             }
@@ -262,11 +260,7 @@ public class LoginActivity extends PresenterActivity<LoginPresenter, LoginPresen
 
     @Override
     public void omDismissed() {
-        resetPasswordAlert=null;
-    }
-
-    public void showEulaDialog() {
-        environment.getRouter().showWebViewDialog(this, getString(R.string.eula_file_link), getString(R.string.end_user_title));
+        resetPasswordAlert = null;
     }
 
     @Override

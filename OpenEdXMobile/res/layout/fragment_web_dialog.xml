@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey_act_background"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginLeft="@dimen/web_dialog_margin"
+        android:layout_marginRight="@dimen/web_dialog_margin" />
 
     <include layout="@layout/loading_indicator" />
 
