@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Landing Activity text -->
+    <!-- Prompt leading user to sign in screen -->
+    <string name="already_have_an_account">Already have an account?\n
+        Sign in</string>
+    <!-- Prompt leading user to create account screen -->
+    <string name="sign_up_and_learn">Sign up\n
+        and start learning</string>
+
+</resources>
