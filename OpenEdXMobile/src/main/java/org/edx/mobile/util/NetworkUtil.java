@@ -3,7 +3,6 @@ package org.edx.mobile.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.NetworkInfo.State;
 import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 
@@ -27,40 +26,32 @@ public class NetworkUtil {
      * @return
      */
     public static boolean isConnected(Context context) {
-        ConnectivityManager conMan = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo infoWifi = conMan.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (infoWifi != null) {
-            State wifi = infoWifi.getState();
-            if (wifi == NetworkInfo.State.CONNECTED) {
-                logger.debug("Wifi is connected");
-                return true;
-            }
+        if (isConnectedLAN(context)) {
+            logger.debug("LAN is connected");
+            return true;
         }
-
-        NetworkInfo infoMobile = conMan.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if (infoMobile != null) {
-            State mobile = infoMobile.getState();
-            if (mobile == NetworkInfo.State.CONNECTED) {
-                logger.debug("Mobile data is connected");
-                return true;
-            }
+        if (isConnectedMobile(context)) {
+            logger.debug("Mobile data is connected");
+            return true;
         }
-
         logger.debug("Network not available");
         return false;
     }
 
     /**
-     * Check if there is any connectivity to a Wifi network
-     *
+     * Check if there is any connectivity to a LAN network
+     * We assume here that this connection has not the same restrictions as mobile network
+     * regarding bandwith.
      * @param context
      * @return
      */
-    public static boolean isConnectedWifi(Context context) {
+    public static boolean isConnectedLAN(Context context) {
         NetworkInfo info = getNetworkInfo(context);
-        return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
+        return (info != null && info.isConnected() &&
+                (
+                        info.getType() == ConnectivityManager.TYPE_WIFI ||
+                        info.getType() == ConnectivityManager.TYPE_ETHERNET
+                ));
     }
 
     /**
@@ -138,7 +129,7 @@ public class NetworkUtil {
     public static boolean verifyDownloadPossible(BaseFragmentActivity activity) {
         if (new PrefManager(activity, PrefManager.Pref.WIFI).getBoolean(PrefManager.Key
                 .DOWNLOAD_ONLY_ON_WIFI, true)) {
-            if (!isConnectedWifi(activity)) {
+            if (!isConnectedLAN(activity)) {
                 activity.showInfoMessage(activity.getString(R.string.wifi_off_message));
                 return false;
             }

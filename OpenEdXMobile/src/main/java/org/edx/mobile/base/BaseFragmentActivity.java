@@ -439,7 +439,7 @@ public abstract class BaseFragmentActivity extends BaseAppActivity
                 });
             }
 
-            if (NetworkUtil.isConnectedWifi(this)) {
+            if (NetworkUtil.isConnectedLAN(this)) {
                 if (!isConnectedToWifi) {
                     isConnectedToWifi = true;
                     handler.post(new Runnable() {
