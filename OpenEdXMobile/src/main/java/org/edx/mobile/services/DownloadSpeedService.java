@@ -143,7 +143,7 @@ public class DownloadSpeedService extends RoboService {
     private void reportDownloadSpeed(float downloadSpeedKps){
         try{
 
-            if (NetworkUtil.isConnectedWifi(DownloadSpeedService.this)) {
+            if (NetworkUtil.isConnectedLAN(DownloadSpeedService.this)) {
                 segIO.trackUserConnectionSpeed(ISegment.Values.WIFI,   downloadSpeedKps);
             } else if (NetworkUtil.isConnectedMobile(DownloadSpeedService.this)) {
                 segIO.trackUserConnectionSpeed(ISegment.Values.CELL_DATA,   downloadSpeedKps);

@@ -66,7 +66,7 @@ public class MediaConsentUtils {
 
     public static void showLeavingAppDataDialog(final FragmentActivity activity, final IDialogCallback consentCallback){
 
-        boolean connectedToWifi = NetworkUtil.isConnectedWifi(activity);
+        boolean connectedToWifi = NetworkUtil.isConnectedLAN(activity);
         if (connectedToWifi) {
             consentCallback.onPositiveClicked();
         } else {
