@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">\@string/platform_name</string>
     <string name="action_not_completed">Votre action ne peut être complétée.</string>
     <string name="action_settings">Préférences</string>
     <string name="allow">Autorisé</string>
@@ -10,7 +9,6 @@
     <string name="android_os_version">Android OS:</string>
     <string name="announcement_subtitle">Suivez les dernières nouvelles</string>
     <string name="announcement_title">Annonces</string>
-    <string name="app_shortcut_name" translatable="false">\@string/shortcut_name</string>
     <string name="app_version">Version de l\'application:</string>
     <string name="app_version_outdated">Une nouvelle version de l\'application est disponible.</string>
     <string name="app_version_unsupported">Votre version de l\'application n\'est plus prise en charge.</string>
